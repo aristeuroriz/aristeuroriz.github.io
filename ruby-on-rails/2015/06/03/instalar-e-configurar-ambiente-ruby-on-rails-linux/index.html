@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bem vindos ao meu Blog!</title>
+<title>Instalar e configurar ambiente Ruby on Rails</title>
 <meta name="description" content="Desenvolvimento Web & IoT - Internet of Things">
 
 <meta name="google-site-verification" content="HLREmMD210WdXoJaO_0DkDH3KPqD5ymjUj8_rCMm7ps" />
@@ -87,11 +87,11 @@
     <div itemscope itemtype="http://schema.org/Article" class="col-md-12 article">
       
       <div class="thumb">
-        <i class="fa fa-thumbs-o-up fa-4x"></i>
+        <i class="fa fa-terminal fa-4x"></i>
       </div>
       
 
-      <h1 class="header" itemprop="name">Bem vindos ao meu Blog!</h1>
+      <h1 class="header" itemprop="name">Instalar e configurar ambiente Ruby on Rails</h1>
 
       <!-- Alteração de layout para background branco -->
 
@@ -111,40 +111,134 @@
             </a>
             
           </span>
-          em <span class="darked" itemprop="datePublished" content="2014-08-28">28/05/2015</span>
-          | Categoria: outros
+          em <span class="darked" itemprop="datePublished" content="2014-08-28">03/06/2015</span>
+          | Categoria: ruby-on-rails
         </i></small>
       </div>
 
       <div class="read-time">
         <small>
-          Lido há 1 min
+          Lido há 2 min
         </small>
       </div>
 
       <div class="content-panel content">
-        <span itemprop="articleBody"><p align="center"> Bem vindos ao meu blog!</p>
-
-<p class="recuo" align="justify">
-Olá! Desenvolvi este blog para postar um pouco das minhas experiências. Aqui você encontra diversas informações úteis sobre tecnologia, além de alguns posts sobre alguns “hobbies” meus.
+        <span itemprop="articleBody"><p class="recuo" align="justify">
+    Vou ensinar neste post como instalar e configurar o ambiente de desenvolvimento Ruby on Rails no LINUX.
+    Eu instalei no meu computador rodando <a href="https://elementary.io/" target="_blank">Elementary OS Freya</a>, OS baseado no Ubuntu 14. Utilizo o <a href="https://rvm.io/" target="_blank">RVM (Ruby Version Manager)</a> que é um gerenciador para se ter várias versões do Ruby na mesma máquina. Vamos usar o "Ruby 2.2.2" e o "Rails 4.2", que são as últimas versões estáveis na data deste post.
 </p>
 
-<p class="recuo" align="justify">
-Para falar um pouco mais sobre mim, sou um aficionado em Ruby e seus frameworks (Rails, Jekyll, etc), pretendo estudar Python em breve e adoro projetos de automação em plataformas como arduino, raspberry pi, etc.
+<p align="justify">
+    Para começar, atualize a lista de pacotes do linux:
+    <code>
+        sudo apt-get update
+    </code>
 </p>
 
-<p class="recuo" align="justify">
-Gosto muito de pedalar e vou postar algumas dessas experiências também. Vou tentar realizar alguns enduros na "camelinha" e compartilhar estes momentos aqui.
+<p align="center">
+    <strong>
+        Instalando o RVM (Ruby Version Manager) e o Ruby
+    </strong>
 </p>
 
-<p class="recuo" align="justify">
-Por fim, agradeço sua visita e postarei o mais rápido possível alguns tutoriais, dicas e informações que ajudem meus leitores com algumas perrengas que se encontram normalmente no início dos estudos.
+<p align="justify">
+    Instale a chave pública do RVM, conforme abaixo:
+    <code>
+        gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    </code>
 </p>
+
+<p align="justify">
+    Para instalar o RVM, use este comando:
+    <code>
+        curl -L https://get.rvm.io | bash -s stable
+    </code>
+    <br>
+
+    Se você não tiver o "curl" instalado, rode este comando para instalar:
+
+    <code>
+        sudo apt-get install curl
+    </code>
+</p>
+
+<p align="justify">
     
+    Com esses passos prontos, temos que adicionar o RVM ao shell. Para isso cole o código abaixo ao arquivo <strong>.bashrc</strong> ou ao <strong>.bash_profile</strong>:
+    <code>
+        PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting <br>
+        [[ -s "/usr/local/rvm/scripts/rvm" ]] &amp;&amp; source "/usr/local/rvm/scripts/rvm"<br>
+        [[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"
+    </code>
+</p>
 
-<p>Valeu e abraços! :-)</p>
+<p><small>
+    <p class="text-warning">
+        <em>
+            Obs.: Se algum comando com rvm não funcionar, você precisa acessar as preferências (Edit -&gt; Profile Preferences) do terminal e marcar a opção para executar comandos com login.
+        </em>
+    </p>
+</small></p>
 
-<p>*** Ahhh... e não deixe de compartilhar!</p>
+<p align="justify">
+
+    Para verificar quais as versões do Ruby estão disponíveis no RVM use:
+    <code>
+        rvm list known
+    </code>
+    <br>
+    Mas antes de instalar o Ruby, instale algumas dependências necessárias:
+
+    <code>
+        sudo apt-get install build-essential openssl libreadline6<br> libreadline6-dev curl git-core zlib1g zlib1g-dev <br>libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev <br>libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison <br>subversion pkg-config
+    </code>
+    <br>
+    Agora, rode este comando para instalar a versão 2.2.2 do Ruby:
+    <code>
+        rvm install 2.2.2
+    </code>
+    <br>
+    Configure a versão instalada para ser a versão padrão:
+    <code>
+        rvm use 2.2.2 --default
+    </code>
+    <br>
+    Pronto! Já podemos verificar a versão do Ruby instalada com este comando:
+    <code>
+        ruby -v
+    </code>
+</p>
+
+<p align="center">
+    <strong>
+        Instalando o Rails
+    </strong>
+</p>    
+
+<p align="justify">
+    
+    Vamos a instalação do Rails. Para isso rode o comando:
+
+    <code>
+        gem install rails
+    </code>
+    <br>
+    Da mesma forma que o Ruby, após a instalação do Rails poderemos verificar a versão instalada:
+    <code>
+        rails -v
+    </code>
+</p>
+
+<p class="recuo" align="justify">
+    Mais uma observação: O Rails usa por padrão o SQLite, entretanto você poderá usar outros bancos como MySQL, PostgreSQL, MongoDB, etc.
+    Não entrarei nos detalhes sobre a instalação de banco de dados para este post não ficar muito longo. Você consegue um tutorial sobre como instalá-los com uma simples pesquisa na web.
+</p>
+
+<p class="recuo" align="justify">
+    Espero que este post ajude a quem está iniciando no mundo RoR e sirva também para os mais experientes relembrarem os passos iniciais.
+</p>
+
+<p>*** Ahhh... e não deixe de compartilhar! ;-)</p>
 </span>
 
         
@@ -158,7 +252,7 @@ Por fim, agradeço sua visita e postarei o mais rápido possível alguns tutoria
 
         <div class="tags"><small>
           <i class="fa fa-tags"></i>
-          bem, vindo, aristeu, roriz
+          instalar, configurar, ambiente, ruby on rails
         </small></div>
 
       </div>
@@ -180,26 +274,27 @@ Por fim, agradeço sua visita e postarei o mais rápido possível alguns tutoria
       <div class="content-panel related clearfix">
         
         <div class="related-header">
-          <a href="/ruby-on-rails/2015/06/03/instalar-e-configurar-ambiente-ruby-on-rails-linux/">Ler mais</a>
+          <a href="/outros/2015/05/28/bem-vindos/">Ler mais</a>
         </div>
         <div class="title">
-          <a href="/ruby-on-rails/2015/06/03/instalar-e-configurar-ambiente-ruby-on-rails-linux/">Instalar e configurar ambiente Ruby on Rails</a>
+          <a href="/outros/2015/05/28/bem-vindos/">Bem vindos ao meu Blog!</a>
         </div>
         <div class="excerpt">
-          Vou ensinar neste post como instalar e configurar o ambiente de desenvolvimento Ruby on Rails no LINUX. Eu instalei no meu computador rodando Elementary OS Freya, OS baseado no Ubuntu...
-          <a href="/ruby-on-rails/2015/06/03/instalar-e-configurar-ambiente-ruby-on-rails-linux/">Continue Lendo</a>
+           Bem vindos ao meu blog!
+
+          <a href="/outros/2015/05/28/bem-vindos/">Continue Lendo</a>
         </div>
         
         <hr />
         <div class="previous previous-next">
           
+          <p>
+            <a href="/outros/2015/05/28/bem-vindos/">Bem vindos ao meu Blog!</a>
+          </p>
+          <p class="date">Publicado em May 28, 2015</p>
+          
         </div>
         <div class="next previous-next">
-          
-          <p>
-            <a href="/ruby-on-rails/2015/06/03/instalar-e-configurar-ambiente-ruby-on-rails-linux/">Instalar e configurar ambiente Ruby on Rails</a>
-          </p>
-          <p class="date">Publicado em June 3, 2015</p>
           
         </div>
       </div>
